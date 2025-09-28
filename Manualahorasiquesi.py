@@ -20,10 +20,12 @@ except Exception:
 
 # --- Definir iconos / imágenes por gran sección ---
 ICONOS = {
-    "caja": "caja.png",          # Imagen de caja registradora
-    "sala": "sala.png",          # Imagen de pasillo supermercado
-    "carnicería": "carniceria.png"  # Imagen de carnicería
+    "caja": "caja.png",
+    "sala": "sala.png",
+    "supermercado": "supermercado.png",
+    "carnicería": "carniceria.png"
 }
+
 
 # --- Función para mostrar subsecciones ---
 def mostrar_seccion(titulo, contenido, allow_upload=False):
@@ -129,6 +131,7 @@ if "carnicería" in secciones:
             st.success("✅ Bien hecho")
         else:
             st.error("❌ Falta imagen")
+
 
 
 
