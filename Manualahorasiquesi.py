@@ -1,12 +1,50 @@
-from docx import Document
-from PIL import Image
-import streamlit as st
-
 import os
 from docx import Document
+import streamlit as st
+from PIL import Image
 
-doc_path = os.path.join(os.path.dirname(__file__), "manual.docx.docx")
-doc = Document(doc_path)
+st.set_page_config(page_title="Manual Operador Super10", page_icon="🛒", layout="wide")
+
+st.title("📘 Manual Operador Sala / Super10")
+
+# --- Cargar DOCX desde el repo ---
+doc_path = os.path.join(os.path.dirname(__file__), "manual_operador_sala_super10_checklist.docx")
+
+try:
+    doc = Document(doc_path)
+    st.success("✅ Manual cargado correctamente")
+except Exception as e:
+    st.error(f"❌ No se pudo abrir el manual en {doc_path}")
+    st.stop()
+
+# --- Mostrar contenido ---
+for p in doc.paragraphs:
+    text = p.text.strip()
+    if not text:
+        st.write("")  # mantener espacios
+        continue
+
+    # Detectar encabezados o frases clave
+    if text.lower().startswith(("caja", "sala", "cómo reponer", "tipos de cortes")):
+        st.subheader(text)
+    elif text.startswith("✅"):
+        st.success(text)
+    elif text.startswith("❌"):
+        st.error(text)
+    else:
+        st.write(text)
+
+    # Si es la sección de ejemplo correcto
+    if "Así debería quedar" in text:
+        if os.path.exists(os.path.join(os.path.dirname(__file__), "Si.jpg")):
+            st.image(os.path.join(os.path.dirname(__file__), "Si.jpg"), caption="Ejemplo correcto de reposición")
+        else:
+            st.warning("⚠️ Imagen 'Si.jpg' no encontrada en el repositorio")
+
+    # Si es la sección "Esto no es así"
+    if "Esto no es así" in text:
+        st.info("Aquí puedes agregar la imagen de un mal ejemplo en el futuro.")
+
 
 
 # --- Configuración de la app ---
@@ -78,5 +116,6 @@ with col2:
         st.error("❌ Falta imagen")
 
 # Se pueden añadir más cortes según se necesite
+
 
 
