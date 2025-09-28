@@ -2,6 +2,13 @@ from docx import Document
 from PIL import Image
 import streamlit as st
 
+import os
+from docx import Document
+
+doc_path = os.path.join(os.path.dirname(__file__), "manual.docx.docx")
+doc = Document(doc_path)
+
+
 # --- Configuración de la app ---
 st.set_page_config(page_title="Manual Operador Super10", page_icon="🛒", layout="wide")
 
@@ -71,4 +78,5 @@ with col2:
         st.error("❌ Falta imagen")
 
 # Se pueden añadir más cortes según se necesite
+
 
