@@ -8,7 +8,7 @@ st.set_page_config(page_title="Manual Operador Super10", page_icon="🛒", layou
 st.title("📘 Manual Operador Sala / Super10")
 
 # --- Cargar DOCX desde el repo ---
-doc_path = os.path.join(os.path.dirname(__file__), "manual_operador_sala_super10_checklist.docx")
+doc_path = os.path.join(os.path.dirname(__file__), "manual.docx.docx")
 
 try:
     doc = Document(doc_path)
@@ -116,6 +116,7 @@ with col2:
         st.error("❌ Falta imagen")
 
 # Se pueden añadir más cortes según se necesite
+
 
 
 
