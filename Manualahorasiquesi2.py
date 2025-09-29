@@ -4,6 +4,9 @@ import re
 import io
 from PIL import Image
 
+import pdfkit
+import markdown2
+
 # --- CONFIGURACIÓN PÁGINA ---
 st.set_page_config(page_title="Manual Operador Super10", page_icon="🛒", layout="wide")
 
@@ -22,6 +25,40 @@ ICONOS = {
 md_path = os.path.join(os.path.dirname(__file__), "manual_organizado.md")
 with open(md_path, "r", encoding="utf-8") as f:
     manual_md = f.read()
+
+# --- BOTÓN PARA EXPORTAR A PDF ---
+def exportar_pdf(md_text):
+    html = markdown2.markdown(md_text)
+    # Opcional: agregar estilos básicos para el PDF
+    estilo = '''<style>body { font-family: Arial, sans-serif; font-size: 13px; } h1,h2,h3 { color: #ff9800; } strong { color: #d35400; }</style>'''
+    html = f"""<html><head>{estilo}</head><body>{html}</body></html>"""
+    # Generar PDF en memoria
+    pdf_bytes = None
+    try:
+        import tempfile
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_pdf:
+            pdfkit.from_string(html, tmp_pdf.name)
+            tmp_pdf.seek(0)
+            pdf_bytes = tmp_pdf.read()
+        os.unlink(tmp_pdf.name)
+    except Exception as e:
+        st.error(f"Error al generar PDF: {e}")
+        return None
+    return pdf_bytes
+
+st.markdown("---")
+st.subheader("Descargar manual en PDF para WhatsApp")
+if st.button("📄 Descargar PDF del manual"):
+    pdf_bytes = exportar_pdf(manual_md)
+    if pdf_bytes:
+        st.download_button(
+            label="Descargar Manual Operador Super10.pdf",
+            data=pdf_bytes,
+            file_name="Manual_Operador_Super10.pdf",
+            mime="application/pdf"
+        )
+    else:
+        st.error("No se pudo generar el PDF.")
 
 def get_icon_for_text(text):
     """Devuelve el HTML de un ícono o imagen según la palabra clave en el texto, excepto para 'corredora'."""
