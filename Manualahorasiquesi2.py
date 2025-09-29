@@ -29,31 +29,28 @@ with open(md_path, "r", encoding="utf-8") as f:
 
 def exportar_pdf(md_text):
     pdf = FPDF()
-    # Registrar fuente TTF con soporte Unicode
-    font_path = os.path.join(os.path.dirname(__file__), "DejaVuSans.ttf")
-    pdf.add_font('DejaVu', '', font_path, uni=True)
-    pdf.add_font('DejaVu', 'B', font_path, uni=True)
+    # Usar solo fuentes estándar para máxima compatibilidad
     # Portada
     pdf.add_page()
     pdf.set_auto_page_break(auto=True, margin=15)
     # Espacio donde estaba el logo
     pdf.ln(30)
     # Título principal
-    pdf.set_font("DejaVu", 'B', 22)
+    pdf.set_font("Arial", 'B', 22)
     pdf.set_text_color(255, 152, 0)
     pdf.cell(0, 18, "Manual Operador Sala / Super10", ln=1, align="C")
     # Subtítulo
-    pdf.set_font("DejaVu", '', 14)
+    pdf.set_font("Arial", '', 14)
     pdf.set_text_color(255, 193, 7)
     pdf.cell(0, 12, "Versión digital corporativa", ln=1, align="C")
     pdf.ln(10)
     pdf.set_text_color(0, 0, 0)
-    pdf.set_font("DejaVu", size=12)
+    pdf.set_font("Arial", size=12)
     pdf.ln(10)
     # Nueva página para el contenido
     pdf.add_page()
     pdf.set_auto_page_break(auto=True, margin=15)
-    pdf.set_font("DejaVu", size=12)
+    pdf.set_font("Arial", size=12)
     # Colores corporativos
     naranja = (255, 152, 0)   # #ff9800
     amarillo = (255, 193, 7)  # #ffc107
@@ -67,25 +64,25 @@ def exportar_pdf(md_text):
     for line in md_text.split('\n'):
         line = line.strip()
         if line.startswith('## '):
-            pdf.set_font("DejaVu", 'B', 16)
+            pdf.set_font("Arial", 'B', 16)
             pdf.set_text_color(*naranja)
             pdf.cell(0, 10, line[3:], ln=1)
-            pdf.set_font("DejaVu", size=12)
+            pdf.set_font("Arial", size=12)
             pdf.set_text_color(0, 0, 0)
         elif line.startswith('### '):
-            pdf.set_font("DejaVu", 'B', 13)
+            pdf.set_font("Arial", 'B', 13)
             pdf.set_text_color(*amarillo)
             pdf.cell(0, 8, line[4:], ln=1)
-            pdf.set_font("DejaVu", size=12)
+            pdf.set_font("Arial", size=12)
             pdf.set_text_color(0, 0, 0)
         elif line.startswith('✅ '):
             pdf.set_text_color(34, 139, 34)  # verde
-            pdf.set_font("DejaVu", size=12)
+            pdf.set_font("Arial", size=12)
             pdf.multi_cell(0, 8, '✔ ' + line[2:])
             pdf.set_text_color(0, 0, 0)
         elif line.startswith('❌ '):
             pdf.set_text_color(200, 0, 0)  # rojo
-            pdf.set_font("DejaVu", size=12)
+            pdf.set_font("Arial", size=12)
             pdf.multi_cell(0, 8, '✘ ' + line[2:])
             pdf.set_text_color(0, 0, 0)
         elif line.startswith('!['):
@@ -116,16 +113,16 @@ def exportar_pdf(md_text):
                         break
                 if match:
                     pdf.set_text_color(*naranja_oscuro)
-                    pdf.set_font("DejaVu", 'B', 12)
+                    pdf.set_font("Arial", 'B', 12)
                     pdf.write(8, match)
                     pdf.set_text_color(0, 0, 0)
-                    pdf.set_font("DejaVu", size=12)
+                    pdf.set_font("Arial", size=12)
                     start += len(match)
                 else:
                     pdf.write(8, line[start])
                     start += 1
             pdf.ln(8)
-    pdf_bytes = pdf.output(dest='S').encode('utf-8')
+    pdf_bytes = pdf.output(dest='S').encode('latin1')
     return pdf_bytes
 
 st.markdown("---")
