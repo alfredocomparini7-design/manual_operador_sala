@@ -4,9 +4,13 @@
 ## CAJA
 
 ### General
+
+
 Limpiar mi caja cuando entre y cuando salga de caja.
 
+
 Poner letrero “caja cerradaˮ.
+
 
 Pedir préstamo.
 
@@ -37,12 +41,16 @@ Abrir rejilla. Cerrarla cuando me vaya a colación o salga de caja. Así como ta
 Siempre limpiar la caja.
 
 ### Impresora en caja
+
+
 Cambiar papel: abrir la cajita, poner el papel con la cola apuntando hacia mí, presionar “enterˮ y el botón “tecladoˮ.
 
 
 Si se le acaba el papel a la impresora → decirle a la supervisora. Apagar la máquina.
 
 ### Manejo de precios y productos
+
+
 Mandar a los clientes a la máquina de precios en pasillo 4 y 7 o preguntarle a la supervisora. (Recordar que al Supermercado lo evaluand por la cantidad de anulaciones y notas de credito).
 
 
@@ -85,6 +93,10 @@ Si me pasan envases → hacer papelito por el N° de envases y firmar.
 Si la corredora empieza a moverse “lentoˮ , tengo que “amasarlaˮ por la parte de adelante y luego darle “golpecitosˮ por la parte de atrás (lado que da a caja). Esto sucede porque hay productos muy pesados y se atasca.
 
 ### Factura (Caja 4 y 5)
+
+Cliente entrega RUT de factura y de la persona natural. 
+
+
 Si el cliente no existe , ingresar los datos:
 
 
@@ -92,6 +104,8 @@ La razón social sale en el documento que el cliente debiese tener.
 
 
 El “Giroˮ lo tengo que preguntar.
+
+El Kino no pasa con factura. 
 
 ### Pagos
 Efectivo: vuelto mínimo $5.000 (múltiplos de 5).
@@ -108,15 +122,6 @@ Giftcard tarjeta: botón 4, deslizar, sale voucher, cliente firma → quedarse c
 
 
 Giftcard impresa (papel): seleccionar pago, escanear código, poner pin, monto, voucher.
-
-
-Facturas: solo en caja 4 y 5. 
-
-Cliente entrega RUT de factura y de la persona.
-
-En caso de ser un cliente nuevo que NO FIGURE EN EL SISTEMA.
-
-Tomar registro de la razón social , nombre , etc.
 
 
 Restricciones: tarjeta de debito o credito, no ambas juntas. 
