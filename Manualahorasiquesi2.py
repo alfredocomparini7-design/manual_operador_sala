@@ -1,5 +1,8 @@
 import os
 import streamlit as st
+import re
+import io
+from PIL import Image
 
 # --- CONFIGURACIÓN PÁGINA ---
 st.set_page_config(page_title="Manual Operador Super10", page_icon="🛒", layout="wide")
@@ -77,12 +80,8 @@ md_path = os.path.join(os.path.dirname(__file__), "manual_organizado.md")
 with open(md_path, "r", encoding="utf-8") as f:
     manual_md = f.read()
 
-# --- RENDER VISUAL CON ICONOS ---
-import re
-
-
 def get_icon_for_text(text):
-    """Devuelve el HTML de un ícono o imagen según la palabra clave en el texto."""
+    """Devuelve el HTML de un ícono o imagen según la palabra clave en el texto, excepto para 'corredora'."""
     iconos_palabras = [
         ("caja", ICONOS.get("caja", ""), "🟧"),
         ("sala", ICONOS.get("sala", ""), "🟦"),
@@ -94,7 +93,7 @@ def get_icon_for_text(text):
         ("reponer", None, "🛒"),
         ("factura", None, "📄"),
         ("aluzado", None, "🌀"),
-        ("corredora", None, "🚚"),
+        # ("corredora", None, "🚚"),  # Removido el ícono para corredora
         ("glosario", None, "📖")
     ]
     text_lower = text.lower()
@@ -106,7 +105,29 @@ def get_icon_for_text(text):
                 return f'<span style="font-size:1.6em; vertical-align:middle; margin-right:8px;">{emoji}</span>'
     return ''
 
+def render_images_from_markdown(md_text):
+    """Detecta imágenes en markdown y las muestra con st.image, devolviendo el markdown sin esas imágenes."""
+    img_pattern = r'!\[([^\]]*)\]\(([^)]+)\)'
+    matches = list(re.finditer(img_pattern, md_text))
+    last_idx = 0
+    cleaned_md = ""
+    for match in matches:
+        start, end = match.span()
+        alt_text, img_path = match.groups()
+        cleaned_md += md_text[last_idx:start]
+        # Mostrar la imagen si existe
+        img_abspath = os.path.join(os.path.dirname(__file__), img_path)
+        if os.path.exists(img_abspath):
+            st.image(img_abspath, caption=alt_text, use_column_width=True)
+        else:
+            cleaned_md += f"[Imagen no encontrada: {alt_text}]"
+        last_idx = end
+    cleaned_md += md_text[last_idx:]
+    return cleaned_md
+
 def render_manual_with_icons(md_text):
+    # Primero, mostrar imágenes y limpiar el markdown
+    md_text = render_images_from_markdown(md_text)
     # Separar por secciones principales
     secciones = re.split(r'(^## .+)', md_text, flags=re.MULTILINE)
     for i, sec in enumerate(secciones):
