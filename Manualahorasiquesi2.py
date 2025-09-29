@@ -72,28 +72,48 @@ with open(md_path, "r", encoding="utf-8") as f:
 # --- RENDER VISUAL CON ICONOS ---
 import re
 
+
+def get_icon_for_text(text):
+    """Devuelve el HTML de un ícono o imagen según la palabra clave en el texto."""
+    iconos_palabras = [
+        ("caja", ICONOS.get("caja", ""), "🟧"),
+        ("sala", ICONOS.get("sala", ""), "🟦"),
+        ("carnicería", ICONOS.get("carnicería", ""), "🥩"),
+        ("mermas", None, "♻️"),
+        ("pagos", None, "💳"),
+        ("impresora", None, "🖨️"),
+        ("equipos", None, "⚙️"),
+        ("reponer", None, "🛒"),
+        ("factura", None, "📄"),
+        ("aluzado", None, "🌀"),
+        ("corredora", None, "🚚"),
+        ("glosario", None, "📖")
+    ]
+    text_lower = text.lower()
+    for palabra, img, emoji in iconos_palabras:
+        if palabra in text_lower:
+            if img and os.path.exists(os.path.join(os.path.dirname(__file__), img)):
+                return f'<img src="file://{os.path.join(os.path.dirname(__file__), img)}" width="38" style="vertical-align:middle; margin-right:8px;">'
+            else:
+                return f'<span style="font-size:1.6em; vertical-align:middle; margin-right:8px;">{emoji}</span>'
+    return ''
+
 def render_manual_with_icons(md_text):
-    # Insertar iconos antes de las secciones principales
-    icon_map = {
-        "CAJA": ICONOS.get("caja", ""),
-        "Sala / Bodega / Reponedor (Sistema 4x1)": ICONOS.get("sala", ""),
-        "Carnicería": ICONOS.get("carnicería", "")
-    }
     # Separar por secciones principales
     secciones = re.split(r'(^## .+)', md_text, flags=re.MULTILINE)
     for i, sec in enumerate(secciones):
         if sec.startswith('## '):
             sec_name = sec[3:].strip()
-            icon_path = icon_map.get(sec_name)
-            if icon_path and os.path.exists(os.path.join(os.path.dirname(__file__), icon_path)):
-                img_html = f'<img src="file://{os.path.join(os.path.dirname(__file__), icon_path)}" width="60" style="vertical-align:middle; margin-right:10px;">'
-            else:
-                img_html = '🟧'
-            secciones[i] = f'<div class="titulo-seccion">{img_html}{sec_name}</div>'
-    # Unir y mostrar
+            icon_html = get_icon_for_text(sec_name)
+            secciones[i] = f'<div class="titulo-seccion">{icon_html}{sec_name}</div>'
+    # Unir y buscar subsecciones
     html_content = ''.join(secciones)
-    # Convertir subtítulos
-    html_content = re.sub(r'### (.+)', r'<div class="subtitulo">\1</div>', html_content)
+    # Subtítulos con íconos
+    def subtitulo_replacer(match):
+        subtitulo = match.group(1)
+        icon_html = get_icon_for_text(subtitulo)
+        return f'<div class="subtitulo">{icon_html}{subtitulo}</div>'
+    html_content = re.sub(r'### (.+)', subtitulo_replacer, html_content)
     # Convertir bloques correctos/incorrectos
     html_content = re.sub(r'(✅ .+)', r'<div class="correcto">\1</div>', html_content)
     html_content = re.sub(r'(❌ .+)', r'<div class="incorrecto">\1</div>', html_content)
@@ -103,8 +123,4 @@ def render_manual_with_icons(md_text):
 
 render_manual_with_icons(manual_md)
 
-
-
-
-
-
+       
