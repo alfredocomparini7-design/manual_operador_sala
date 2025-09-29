@@ -139,16 +139,20 @@ def render_images_in_flow(md_text):
 def render_manual_with_icons(md_text):
     # Palabras clave a resaltar automáticamente en negrita
     palabras_negrita = [
-        "Importante", "RECORDAR", "Nota", "Siempre", "Nunca", "Prohibido", "Atención", "Cuidado", "Sugerencia", "Ejemplo", "Restricciones", "Usuario", "Clave", "Local", "Configuración", "Seguridad"
+        "Importante", "RECORDAR", "Nota", "Siempre", "Nunca", "Prohibido", "Atención", "Cuidado", "Sugerencia", "Ejemplo", "Restricciones", "Usuario", "Clave", "Local", "Configuración", "Seguridad",
+        "Pistola de radiofrecuencia", "Transpaleta manual", "Transpaleta eléctrica", "Transpaleta electrica",
+        "Checkout", "Barrido de sala/caja", "Cabecera", "Brecha visible", "Brecha invisible", "FEFO", "Fleje", "Flejera", "Góndola", "Isla", "Isla de congelados", "Layout", "Quiebre de stock"
     ]
     # Procesar imágenes en el flujo correcto
     parts = render_images_in_flow(md_text)
     for part in parts:
         if part[0] == "text":
             text = part[1]
-            # Resaltar palabras clave en negrita
-            for palabra in palabras_negrita:
-                text = re.sub(rf'\b({palabra})\b', r'**\1**', text)
+            # Resaltar palabras/frases clave en negrita (frases primero)
+            palabras_negrita_ordenadas = sorted(palabras_negrita, key=len, reverse=True)
+            for palabra in palabras_negrita_ordenadas:
+                # Permitir frases y palabras
+                text = re.sub(rf'(?<!\*)\b({re.escape(palabra)})\b(?!\*)', r'**\1**', text)
             # Separar por secciones principales
             secciones = re.split(r'(^## .+)', text, flags=re.MULTILINE)
             for i, sec in enumerate(secciones):
