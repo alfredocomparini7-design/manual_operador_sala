@@ -3,65 +3,69 @@ import streamlit as st
 from docx import Document
 from PIL import Image
 
-# Leer el archivo markdown
-with open("manual_organizado.md", "r", encoding="utf-8") as f:
-    manual = f.read()
-
-# Mostrar el contenido en la app
-st.markdown(manual)
-
-# --- CONFIGURACIÓN PÁGINA ---
+# --- CONFIGURACIÓN ---
 st.set_page_config(page_title="Manual Operador Super10", page_icon="🛒", layout="wide")
 
 # --- ESTILOS PERSONALIZADOS ---
 st.markdown("""
     <style>
     body {
-        background-color: #f8f9fa;
+        background-color: #fdfdfd;
         color: #333333;
     }
     .seccion {
         padding: 1rem;
         border-radius: 12px;
         margin-bottom: 1rem;
-        background-color: #ffffff;
-        box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+        background-color: #fff8e1; /* amarillo claro */
+        border-left: 6px solid #f39c12; /* naranjo corporativo */
+        box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
     }
     .titulo-seccion {
-        font-size: 26px;
+        font-size: 28px;
         font-weight: 700;
         margin-bottom: 0.5rem;
-        color: #2c3e50;
+        color: #f39c12; /* naranjo */
     }
     .subtitulo {
         font-size: 20px;
         font-weight: 600;
         margin-top: 1rem;
-        color: #34495e;
+        color: #e67e22; /* naranjo un poco más oscuro */
     }
     .correcto {
-        background-color: #e9f7ef;
+        background-color: #eafaf1;
         padding: 0.5rem;
         border-radius: 8px;
         color: #27ae60;
         font-weight: 600;
+        border-left: 4px solid #27ae60;
+        margin-top: 0.5rem;
     }
     .incorrecto {
-        background-color: #fdeded;
+        background-color: #fdecea;
         padding: 0.5rem;
         border-radius: 8px;
         color: #c0392b;
         font-weight: 600;
+        border-left: 4px solid #c0392b;
+        margin-top: 0.5rem;
+    }
+    hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(to right, #f39c12, #f1c40f);
+        margin: 2rem 0;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# --- TITULO APP ---
+# --- TÍTULO ---
 st.title("📘 Manual Operador Sala / Super10")
-st.markdown("Versión digital corporativa con **secciones visuales, íconos y ejemplos**.")
+st.markdown("Versión digital **corporativa** con colores naranjo y amarillo.")
 
 # --- CARGAR DOCX ---
-doc_path = os.path.join(os.path.dirname(__file__), "manual.docx.docx")
+doc_path = os.path.join(os.path.dirname(__file__), "manual_operador_sala_super10_checklist.docx")
 doc = Document(doc_path)
 
 # --- ICONOS / IMÁGENES ---
@@ -71,7 +75,7 @@ ICONOS = {
     "carnicería": "carniceria.png"
 }
 
-# --- FUNCIÓN PARA MOSTRAR BLOQUES ---
+# --- FUNCIÓN PARA BLOQUES ---
 def render_bloque(titulo, contenido, allow_upload=False):
     st.markdown(f"<div class='subtitulo'>{titulo}</div>", unsafe_allow_html=True)
     for linea in contenido:
@@ -90,7 +94,7 @@ def render_bloque(titulo, contenido, allow_upload=False):
         else:
             st.write(linea)
 
-# --- ESTRUCTURA JERÁRQUICA ---
+# --- ESTRUCTURA ---
 ESTRUCTURA = {
     "Caja": ["Impresora en caja", "Pagos"],
     "Sala": ["Mermas", "Códigos de mermas", "Cómo reponer"],
@@ -122,9 +126,9 @@ for p in doc.paragraphs:
             if subseccion_actual:
                 secciones[seccion_actual][subseccion_actual].append(text)
 
-# --- RENDERIZAR SECCIONES ---
+# --- RENDERIZAR ---
 for gsec, subsecs in secciones.items():
-    st.markdown("<hr>", unsafe_allow_html=True)  # divisor elegante
+    st.markdown("<hr>", unsafe_allow_html=True)
     col1, col2 = st.columns([1, 6])
     with col1:
         icon_path = ICONOS.get(gsec.lower())
@@ -164,4 +168,6 @@ with col2:
         st.success("✅ Bien hecho")
     else:
         st.error("❌ Falta imagen")
+
+
 
