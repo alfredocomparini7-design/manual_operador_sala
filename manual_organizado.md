@@ -146,15 +146,11 @@ Limpiar, rotar , ordenar y reponer.
 
 Si no hay nadie en caja, cerrarla y consultar en sala o con el jefe en la caseta.
 
-
 Ver si hay pallets e ir reponiendo.
-
 
 Fechas de productos: las más próximas adelante, las nuevas atrás.
 
-
 Preguntar a los jefes si bajo un pallet con la transpaleta para trabajarlo y/o subir uno (con su respectivo cartel de fecha trabajado)
-
 
 Ordenar con planograma (últimos 3 dígitos del código del producto).
 
@@ -209,13 +205,14 @@ Códigos merma (van en cajas plásticas con código respectivo en sala de mermas
 
 53: Vencimiento
 
-81: Hurto
+54: Operacional ( mal fabrica y/o mala manipulacion de nosotros)
 
-55: Operacional
+80: Electroorganica (descomposición de frutas y verduras , o , no perder sus caracteristicas "frescas")
+
+81: Hurto. (Productos robados , ((comunicación con guardias))
 
 ### Carnicería / Refrigeración
 Nota importante: Para no cortar la cadena de frío en refrigeración/carnes, apilar los productos hasta la línea roja demarcada.
-
 
 Si un cliente no lleva carnes o lácteos → guardar inmediatamente en el refrigerador de las bebidas en la esquina del  checkout.
 
@@ -244,14 +241,13 @@ Después de configurar, sacar un fleje con cualquier producto antes de empezar a
 Asegurarse de que la barra esté parpadeando en “EANˮ, si no → no lo saca.
 
 Equipos:
+
 Transpaleta manual
 
 
 Para subir: giros completos de sube y baja con el manubrio.
 
-
 Para bajar: apretar la palanquita al lado del manubrio.
-
 
 Tener ojo con las marcas en el pallet y la transpaleta, para no romper la madera.
 
