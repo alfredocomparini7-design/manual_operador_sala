@@ -110,10 +110,16 @@ Giftcard tarjeta: botón 4, deslizar, sale voucher, cliente firma → quedarse c
 Giftcard impresa (papel): seleccionar pago, escanear código, poner pin, monto, voucher.
 
 
-Facturas: solo en caja 4 y 5. Cliente entrega RUT de factura y de la persona. En caso de ser un cliente nuevo que NO FIGURE EN EL SISTEMA. Tomar registro de la razón social , nombre , etc.
+Facturas: solo en caja 4 y 5. 
+
+Cliente entrega RUT de factura y de la persona.
+
+En caso de ser un cliente nuevo que NO FIGURE EN EL SISTEMA.
+
+Tomar registro de la razón social , nombre , etc.
 
 
-Restricciones: efectivo o tarjeta, no ambas juntas. El Kino no pasa con factura.
+Restricciones: tarjeta de debito o credito, no ambas juntas. 
 
 
 Tarjeta HITES: comprobar datos de la persona, si no coinciden no se puede. NUNCA DE LOS JAMASES APRETAR “CANCELARˮ , “CONSULTAR SALDOˮ O PASAR LA TARJETA MAS DE 1 VEZ , YA QUE HAY UN BUG QUE CONGELA LA PANTALLA Y HAY QUE REINICIAR EL SISTEMA.
