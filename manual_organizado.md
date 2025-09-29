@@ -240,7 +240,8 @@ Después de configurar, sacar un fleje con cualquier producto antes de empezar a
 
 Asegurarse de que la barra esté parpadeando en “EANˮ, si no → no lo saca.
 
-Equipos:
+Maquinas de movimiento : 
+
 
 Transpaleta manual
 
