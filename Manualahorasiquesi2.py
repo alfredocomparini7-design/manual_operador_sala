@@ -55,7 +55,7 @@ st.markdown("""
 
 # --- TITULO APP ---
 st.title("📘 Manual Operador Sala / Super10")
-st.markdown("Versión digital corporativa con **secciones visuales, íconos y ejemplos**.")
+st.markdown("Versión digital  ** Ojalas les sirva**.")
 
 # --- ICONOS / IMÁGENES ---
 ICONOS = {
@@ -86,7 +86,7 @@ def get_icon_for_text(text):
         ("reponer", None, "🛒"),
         ("factura", None, "📄"),
         ("aluzado", None, "🌀"),
-        ("corredora", None, "🚚"),
+        ("corredora", None, ""),
         ("glosario", None, "📖")
     ]
     text_lower = text.lower()
@@ -124,3 +124,4 @@ def render_manual_with_icons(md_text):
 render_manual_with_icons(manual_md)
 
        
+
