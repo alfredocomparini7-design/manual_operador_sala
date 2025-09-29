@@ -4,8 +4,7 @@ import re
 import io
 from PIL import Image
 
-import pdfkit
-import markdown2
+from fpdf import FPDF
 
 # --- CONFIGURACIÓN PÁGINA ---
 st.set_page_config(page_title="Manual Operador Super10", page_icon="🛒", layout="wide")
@@ -27,23 +26,105 @@ with open(md_path, "r", encoding="utf-8") as f:
     manual_md = f.read()
 
 # --- BOTÓN PARA EXPORTAR A PDF ---
+
 def exportar_pdf(md_text):
-    html = markdown2.markdown(md_text)
-    # Opcional: agregar estilos básicos para el PDF
-    estilo = '''<style>body { font-family: Arial, sans-serif; font-size: 13px; } h1,h2,h3 { color: #ff9800; } strong { color: #d35400; }</style>'''
-    html = f"""<html><head>{estilo}</head><body>{html}</body></html>"""
-    # Generar PDF en memoria
-    pdf_bytes = None
-    try:
-        import tempfile
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_pdf:
-            pdfkit.from_string(html, tmp_pdf.name)
-            tmp_pdf.seek(0)
-            pdf_bytes = tmp_pdf.read()
-        os.unlink(tmp_pdf.name)
-    except Exception as e:
-        st.error(f"Error al generar PDF: {e}")
-        return None
+    pdf = FPDF()
+    # Portada
+    pdf.add_page()
+    pdf.set_auto_page_break(auto=True, margin=15)
+    # Logo
+    logo_path = os.path.join(os.path.dirname(__file__), "chanchito.png")
+    if os.path.exists(logo_path):
+        pdf.image(logo_path, x=pdf.w/2-25, y=20, w=50)
+        pdf.ln(50)
+    else:
+        pdf.ln(30)
+    # Título principal
+    pdf.set_font("Arial", 'B', 22)
+    pdf.set_text_color(255, 152, 0)
+    pdf.cell(0, 18, "Manual Operador Sala / Super10", ln=1, align="C")
+    # Subtítulo
+    pdf.set_font("Arial", '', 14)
+    pdf.set_text_color(255, 193, 7)
+    pdf.cell(0, 12, "Versión digital corporativa", ln=1, align="C")
+    pdf.ln(10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_font("Arial", size=12)
+    pdf.ln(10)
+    # Nueva página para el contenido
+    pdf.add_page()
+    pdf.set_auto_page_break(auto=True, margin=15)
+    pdf.set_font("Arial", size=12)
+    # Colores corporativos
+    naranja = (255, 152, 0)   # #ff9800
+    amarillo = (255, 193, 7)  # #ffc107
+    naranja_oscuro = (211, 84, 0) # #d35400
+    # Palabras clave a resaltar
+    palabras_negrita = [
+        "Importante", "RECORDAR", "Nota", "Siempre", "Nunca", "Prohibido", "Atención", "Cuidado", "Sugerencia", "Ejemplo", "Restricciones", "Usuario", "Clave", "Local", "Configuración", "Seguridad",
+        "Pistola de radiofrecuencia", "Transpaleta manual", "Transpaleta eléctrica", "Transpaleta electrica",
+        "Checkout", "Barrido de sala/caja", "Cabecera", "Brecha visible", "Brecha invisible", "FEFO", "Fleje", "Flejera", "Góndola", "Isla", "Isla de congelados", "Layout", "Quiebre de stock"
+    ]
+    for line in md_text.split('\n'):
+        line = line.strip()
+        if line.startswith('## '):
+            pdf.set_font("Arial", 'B', 16)
+            pdf.set_text_color(*naranja)
+            pdf.cell(0, 10, line[3:], ln=1)
+            pdf.set_font("Arial", size=12)
+            pdf.set_text_color(0, 0, 0)
+        elif line.startswith('### '):
+            pdf.set_font("Arial", 'B', 13)
+            pdf.set_text_color(*amarillo)
+            pdf.cell(0, 8, line[4:], ln=1)
+            pdf.set_font("Arial", size=12)
+            pdf.set_text_color(0, 0, 0)
+        elif line.startswith('✅ '):
+            pdf.set_text_color(34, 139, 34)  # verde
+            pdf.multi_cell(0, 8, '✔ ' + line[2:])
+            pdf.set_text_color(0, 0, 0)
+        elif line.startswith('❌ '):
+            pdf.set_text_color(200, 0, 0)  # rojo
+            pdf.multi_cell(0, 8, '✘ ' + line[2:])
+            pdf.set_text_color(0, 0, 0)
+        elif line.startswith('!['):
+            import re
+            m = re.match(r'!\[[^\]]*\]\(([^)]+)\)', line)
+            if m:
+                img_path = os.path.join(os.path.dirname(__file__), m.group(1))
+                if os.path.exists(img_path):
+                    try:
+                        pdf.ln(2)
+                        pdf.image(img_path, w=100)
+                        pdf.ln(2)
+                    except Exception:
+                        pdf.cell(0, 8, '[Imagen no soportada]', ln=1)
+                else:
+                    pdf.cell(0, 8, '[Imagen no encontrada]', ln=1)
+        elif line == '':
+            pdf.ln(4)
+        else:
+            # Resaltar palabras clave en naranja oscuro
+            palabras_negrita_ordenadas = sorted(palabras_negrita, key=len, reverse=True)
+            start = 0
+            while start < len(line):
+                match = None
+                for palabra in palabras_negrita_ordenadas:
+                    if line[start:].lower().startswith(palabra.lower()):
+                        match = palabra
+                        break
+                if match:
+                    pdf.set_text_color(*naranja_oscuro)
+                    pdf.set_font("Arial", 'B', 12)
+                    pdf.write(8, match)
+                    pdf.set_text_color(0, 0, 0)
+                    pdf.set_font("Arial", size=12)
+                    start += len(match)
+                else:
+                    pdf.write(8, line[start])
+                    start += 1
+            pdf.ln(8)
+    pdf_bytes = pdf.output(dest='S').encode('latin1')
     return pdf_bytes
 
 st.markdown("---")
