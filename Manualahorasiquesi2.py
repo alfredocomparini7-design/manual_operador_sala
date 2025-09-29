@@ -1,4 +1,4 @@
-mport os
+import os
 import streamlit as st
 
 # --- CONFIGURACIÓN PÁGINA ---
@@ -102,6 +102,7 @@ def render_manual_with_icons(md_text):
     st.markdown(html_content, unsafe_allow_html=True)
 
 render_manual_with_icons(manual_md)
+
 
 
 
