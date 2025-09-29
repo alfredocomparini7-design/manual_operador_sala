@@ -3,6 +3,13 @@ import streamlit as st
 from docx import Document
 from PIL import Image
 
+# Leer el archivo markdown
+with open("manual_organizado.md", "r", encoding="utf-8") as f:
+    manual = f.read()
+
+# Mostrar el contenido en la app
+st.markdown(manual)
+
 # --- CONFIGURACIÓN PÁGINA ---
 st.set_page_config(page_title="Manual Operador Super10", page_icon="🛒", layout="wide")
 
@@ -157,3 +164,4 @@ with col2:
         st.success("✅ Bien hecho")
     else:
         st.error("❌ Falta imagen")
+
