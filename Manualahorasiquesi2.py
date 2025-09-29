@@ -56,6 +56,14 @@ st.markdown("""
         color: #e65100;
         font-weight: 700;
     }
+    p, li {
+        line-height: 1.8;
+        margin-bottom: 0.7em;
+    }
+    strong, b {
+        font-weight: 900 !important;
+        color: #d35400;
+    }
     hr {
         border: none;
         border-top: 2px solid #ffb300;
@@ -127,12 +135,20 @@ def render_images_in_flow(md_text):
 
 
 
+
 def render_manual_with_icons(md_text):
+    # Palabras clave a resaltar automáticamente en negrita
+    palabras_negrita = [
+        "Importante", "RECORDAR", "Nota", "Siempre", "Nunca", "Prohibido", "Atención", "Cuidado", "Sugerencia", "Ejemplo", "Restricciones", "Usuario", "Clave", "Local", "Configuración", "Seguridad"
+    ]
     # Procesar imágenes en el flujo correcto
     parts = render_images_in_flow(md_text)
     for part in parts:
         if part[0] == "text":
             text = part[1]
+            # Resaltar palabras clave en negrita
+            for palabra in palabras_negrita:
+                text = re.sub(rf'\b({palabra})\b', r'**\1**', text)
             # Separar por secciones principales
             secciones = re.split(r'(^## .+)', text, flags=re.MULTILINE)
             for i, sec in enumerate(secciones):
