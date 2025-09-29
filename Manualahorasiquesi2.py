@@ -6,6 +6,10 @@ from PIL import Image
 
 from fpdf import FPDF
 
+from PIL import Image
+im = Image.open("chanchito.jpg")
+im.save("chanchito.png")
+
 # --- CONFIGURACIÓN PÁGINA ---
 st.set_page_config(page_title="Manual Operador Super10", page_icon="🛒", layout="wide")
 
@@ -265,3 +269,4 @@ def render_manual_with_icons(md_text):
                 st.warning(f"[Imagen no encontrada: {alt_text}]")
 
 render_manual_with_icons(manual_md)
+
