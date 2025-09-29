@@ -148,12 +148,29 @@ def render_manual_with_icons(md_text):
     for part in parts:
         if part[0] == "text":
             text = part[1]
-            # Resaltar palabras/frases clave en negrita (frases primero, sin duplicar negrita)
             palabras_negrita_ordenadas = sorted(palabras_negrita, key=len, reverse=True)
-            for palabra in palabras_negrita_ordenadas:
-                # Solo resaltar si no está ya en negrita
-                pattern = rf'(?<!\*)({re.escape(palabra)})(?!\*)'
-                text = re.sub(pattern, r'**\1**', text)
+            # Dividir el texto en bloques fuera y dentro de negrita
+            def bold_phrases_outside_blocks(texto, frases):
+                # Encuentra bloques **...** y partes fuera de ellos
+                pattern = r'(\*\*[^*]+\*\*)'
+                partes = re.split(pattern, texto)
+                for i, parte in enumerate(partes):
+                    # Solo procesar fuera de bloques **...**
+                    if not parte.startswith('**'):
+                        for frase in frases:
+                            # Solo si la frase no está ya en negrita
+                            def no_dup_bold(m):
+                                # Evita duplicar negrita
+                                return f'**{m.group(1)}**' if not m.group(0).startswith('**') else m.group(0)
+                            # Usar word boundary solo si la frase no tiene espacios
+                            if ' ' in frase:
+                                pattern_frase = rf'(?<!\*)({re.escape(frase)})(?!\*)'
+                            else:
+                                pattern_frase = rf'(?<!\*)\b({re.escape(frase)})\b(?!\*)'
+                            parte = re.sub(pattern_frase, no_dup_bold, parte)
+                    partes[i] = parte
+                return ''.join(partes)
+            text = bold_phrases_outside_blocks(text, palabras_negrita_ordenadas)
             # Separar por secciones principales
             secciones = re.split(r'(^## .+)', text, flags=re.MULTILINE)
             for i, sec in enumerate(secciones):
