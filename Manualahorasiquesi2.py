@@ -105,49 +105,62 @@ def get_icon_for_text(text):
                 return f'<span style="font-size:1.6em; vertical-align:middle; margin-right:8px;">{emoji}</span>'
     return ''
 
-def render_images_from_markdown(md_text):
-    """Detecta imágenes en markdown y las muestra con st.image, devolviendo el markdown sin esas imágenes."""
+def render_images_in_flow(md_text):
+    """Reemplaza la sintaxis de imagen markdown por el renderizado de la imagen en el lugar correcto."""
     img_pattern = r'!\[([^\]]*)\]\(([^)]+)\)'
-    matches = list(re.finditer(img_pattern, md_text))
+    parts = []
     last_idx = 0
-    cleaned_md = ""
-    for match in matches:
+    for match in re.finditer(img_pattern, md_text):
         start, end = match.span()
         alt_text, img_path = match.groups()
-        cleaned_md += md_text[last_idx:start]
-        # Mostrar la imagen si existe
+        # Agregar texto antes de la imagen
+        if start > last_idx:
+            parts.append(("text", md_text[last_idx:start]))
+        # Agregar la imagen
         img_abspath = os.path.join(os.path.dirname(__file__), img_path)
-        if os.path.exists(img_abspath):
-            st.image(img_abspath, caption=alt_text, use_column_width=True)
-        else:
-            cleaned_md += f"[Imagen no encontrada: {alt_text}]"
+        parts.append(("image", img_abspath, alt_text))
         last_idx = end
-    cleaned_md += md_text[last_idx:]
-    return cleaned_md
+    # Agregar el resto del texto
+    if last_idx < len(md_text):
+        parts.append(("text", md_text[last_idx:]))
+    return parts
+
 
 def render_manual_with_icons(md_text):
-    # Primero, mostrar imágenes y limpiar el markdown
-    md_text = render_images_from_markdown(md_text)
-    # Separar por secciones principales
-    secciones = re.split(r'(^## .+)', md_text, flags=re.MULTILINE)
-    for i, sec in enumerate(secciones):
-        if sec.startswith('## '):
-            sec_name = sec[3:].strip()
-            icon_html = get_icon_for_text(sec_name)
-            secciones[i] = f'<div class="titulo-seccion">{icon_html}{sec_name}</div>'
-    # Unir y buscar subsecciones
-    html_content = ''.join(secciones)
-    # Subtítulos con íconos
-    def subtitulo_replacer(match):
-        subtitulo = match.group(1)
-        icon_html = get_icon_for_text(subtitulo)
-        return f'<div class="subtitulo">{icon_html}{subtitulo}</div>'
-    html_content = re.sub(r'### (.+)', subtitulo_replacer, html_content)
-    # Convertir bloques correctos/incorrectos
-    html_content = re.sub(r'(✅ .+)', r'<div class="correcto">\1</div>', html_content)
-    html_content = re.sub(r'(❌ .+)', r'<div class="incorrecto">\1</div>', html_content)
-    # Convertir bloques de sección
-    html_content = re.sub(r'(\n\n)', r'<div class="seccion"></div>', html_content)
+    # Procesar imágenes en el flujo correcto
+    parts = render_images_in_flow(md_text)
+    # Unir partes de texto para aplicar formato visual
+    html_content = ""
+    for part in parts:
+        if part[0] == "text":
+            # Procesar el texto con los mismos reemplazos visuales
+            text = part[1]
+            # Separar por secciones principales
+            secciones = re.split(r'(^## .+)', text, flags=re.MULTILINE)
+            for i, sec in enumerate(secciones):
+                if sec.startswith('## '):
+                    sec_name = sec[3:].strip()
+                    icon_html = get_icon_for_text(sec_name)
+                    secciones[i] = f'<div class="titulo-seccion">{icon_html}{sec_name}</div>'
+            text = ''.join(secciones)
+            # Subtítulos con íconos
+            def subtitulo_replacer(match):
+                subtitulo = match.group(1)
+                icon_html = get_icon_for_text(subtitulo)
+                return f'<div class="subtitulo">{icon_html}{subtitulo}</div>'
+            text = re.sub(r'### (.+)', subtitulo_replacer, text)
+            # Convertir bloques correctos/incorrectos
+            text = re.sub(r'(✅ .+)', r'<div class="correcto">\1</div>', text)
+            text = re.sub(r'(❌ .+)', r'<div class="incorrecto">\1</div>', text)
+            # Convertir bloques de sección
+            text = re.sub(r'(\n\n)', r'<div class="seccion"></div>', text)
+            html_content += text
+        elif part[0] == "image":
+            img_abspath, alt_text = part[1], part[2]
+            if os.path.exists(img_abspath):
+                st.image(img_abspath, caption=alt_text, use_column_width=True)
+            else:
+                html_content += f"[Imagen no encontrada: {alt_text}]"
     st.markdown(html_content, unsafe_allow_html=True)
 
 render_manual_with_icons(manual_md)
