@@ -126,14 +126,12 @@ def render_images_in_flow(md_text):
     return parts
 
 
+
 def render_manual_with_icons(md_text):
     # Procesar imágenes en el flujo correcto
     parts = render_images_in_flow(md_text)
-    # Unir partes de texto para aplicar formato visual
-    html_content = ""
     for part in parts:
         if part[0] == "text":
-            # Procesar el texto con los mismos reemplazos visuales
             text = part[1]
             # Separar por secciones principales
             secciones = re.split(r'(^## .+)', text, flags=re.MULTILINE)
@@ -154,13 +152,12 @@ def render_manual_with_icons(md_text):
             text = re.sub(r'(❌ .+)', r'<div class="incorrecto">\1</div>', text)
             # Convertir bloques de sección
             text = re.sub(r'(\n\n)', r'<div class="seccion"></div>', text)
-            html_content += text
+            st.markdown(text, unsafe_allow_html=True)
         elif part[0] == "image":
             img_abspath, alt_text = part[1], part[2]
             if os.path.exists(img_abspath):
                 st.image(img_abspath, caption=alt_text, use_column_width=True)
             else:
-                html_content += f"[Imagen no encontrada: {alt_text}]"
-    st.markdown(html_content, unsafe_allow_html=True)
+                st.markdown(f"[Imagen no encontrada: {alt_text}]", unsafe_allow_html=True)
 
 render_manual_with_icons(manual_md)
