@@ -1,3 +1,4 @@
+import unicodedata
 import os
 import streamlit as st
 import re
@@ -28,6 +29,11 @@ with open(md_path, "r", encoding="utf-8") as f:
 # --- BOTÓN PARA EXPORTAR A PDF ---
 
 def exportar_pdf(md_text):
+    def limpiar_texto(texto):
+        # Normaliza y elimina tildes/ñ/símbolos fuera de latin1
+        texto = unicodedata.normalize('NFKD', texto)
+        texto = texto.encode('latin1', 'ignore').decode('latin1')
+        return texto
     pdf = FPDF()
     # Usar solo fuentes estándar para máxima compatibilidad
     # Portada
@@ -62,7 +68,7 @@ def exportar_pdf(md_text):
         "Checkout", "Barrido de sala/caja", "Cabecera", "Brecha visible", "Brecha invisible", "FEFO", "Fleje", "Flejera", "Góndola", "Isla", "Isla de congelados", "Layout", "Quiebre de stock"
     ]
     for line in md_text.split('\n'):
-        line = line.strip()
+        line = limpiar_texto(line.strip())
         if line.startswith('## '):
             pdf.set_font("Arial", 'B', 16)
             pdf.set_text_color(*naranja)
