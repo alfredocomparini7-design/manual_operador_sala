@@ -148,11 +148,12 @@ def render_manual_with_icons(md_text):
     for part in parts:
         if part[0] == "text":
             text = part[1]
-            # Resaltar palabras/frases clave en negrita (frases primero)
+            # Resaltar palabras/frases clave en negrita (frases primero, sin duplicar negrita)
             palabras_negrita_ordenadas = sorted(palabras_negrita, key=len, reverse=True)
             for palabra in palabras_negrita_ordenadas:
-                # Permitir frases y palabras
-                text = re.sub(rf'(?<!\*)\b({re.escape(palabra)})\b(?!\*)', r'**\1**', text)
+                # Solo resaltar si no está ya en negrita
+                pattern = rf'(?<!\*)({re.escape(palabra)})(?!\*)'
+                text = re.sub(pattern, r'**\1**', text)
             # Separar por secciones principales
             secciones = re.split(r'(^## .+)', text, flags=re.MULTILINE)
             for i, sec in enumerate(secciones):
