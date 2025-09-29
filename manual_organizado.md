@@ -10,16 +10,22 @@ Poner letrero “caja cerradaˮ.
 
 Pedir préstamo.
 
+
 De caja no me puedo mover.
+
 
 Para retiros cerrar la caja mientras cuento el dinero, también si es que se acaba el dinero. A los clientes que queden decirles “solo tarjeta, sin efectivoˮ.
 
+
 No hacer retiro hasta que o se me acabe el dinero o se bloquee la caja , NO seguir la recomendación de “se recomienda retiroˮ (ya que suele hacerla muy “tempranoˮ)  Sodexo / Pluxe son lo mismo.
+
 
 Envasar productos rotos
 
+
 Con el ALCOHOL hay que recordar que SALE MENSAJE, APRETAR ACEPTAR para continuar con los productos que siguen. Los que vienen en caja pedir envase.
 RECORDAR que JUNAEB son HASTA 2 SELLOS , LA DIFERENCIA LA PAGA EL CLIENTE CON OTRO MEDIO DE PAGO.
+
 
 El “TBKˮ es para cuando sacan la Transbank y traen otra o se cae el sistema.
 Operación manual.
@@ -205,13 +211,18 @@ Si un cliente no lleva carnes o lácteos → guardar inmediatamente en el refrig
 ### Uso de equipos
 Pistola de radiofrecuencia
 
+
 Usuario: 3518
+
 
 Clave: s103518
 
+
 Local: 3518
 
+
 Geopricer (siempre)
+
 
 Configuración: puerto siempre en 6101, IP la que indique la impresora. (Esta IP , cambia cada tantos minutos , estar pendiente para Volver a configuración y poner la nueva)
 
@@ -227,17 +238,24 @@ Transpaleta manual
 
 Para subir: giros completos de sube y baja con el manubrio.
 
+
 Para bajar: apretar la palanquita al lado del manubrio.
+
 
 Tener ojo con las marcas en el pallet y la transpaleta, para no romper la madera.
 
 
 Transpaleta eléctrica
+
+
 Revisar batería antes de usar. Si no hay carga, buscar baterías cargadas atrás de los pallets.
+
 
 Encender con botón rojo.
 
+
 Inclinar a 70° hacia atrás.
+
 
 Botones blancos laterales → mover despacio hacia atrás (si se hace rápido, acelera mucho).
 
@@ -247,26 +265,40 @@ Cargas pesadas: mover un poco hacia arriba.
 
 Seguridad: si el manubrio toca el pecho, la máquina se apaga (volver a apretar botón rojo).
 
+
+
+
+
 📌 Extras
+
 
 
 El operador de sala deja las mermas en las cajas correspondientes.
 
 
+
 Entradas en la mañana por Arturo Prat; después de la 1, por entrada principal.
+
 
 
 Cuidado con productos en oferta sin stock.
 
 
+
 Mantener calma en caja, no hacer las cosas muy rápido.
+
 
 
 Tener cuidado con presionar TBK.
 
+
 Si hay problema con boletas, avisar inmediatamente.
 
+
+
 Si falta espacio de algún producto , preguntar a los jefes. Lo mismo respecto a si hay que subir o bajar pallets , preguntar a los jefes.
+
+
 
 
 En las mini-galletas ordenar bien (primera en entrar , primero en salir) , a pesar de que el cliente “revuelva” la cosa y queden 4 fechas combinadas (informar de las proximas a vencer a los jefes) Sugiero tomar fotos luego de ordenar la parte de las mini-galletas e informarlo.
