@@ -6,10 +6,6 @@ from PIL import Image
 
 from fpdf import FPDF
 
-from PIL import Image
-im = Image.open("chanchito.jpg")
-im.save("chanchito.png")
-
 # --- CONFIGURACIÓN PÁGINA ---
 st.set_page_config(page_title="Manual Operador Super10", page_icon="🛒", layout="wide")
 
@@ -36,13 +32,8 @@ def exportar_pdf(md_text):
     # Portada
     pdf.add_page()
     pdf.set_auto_page_break(auto=True, margin=15)
-    # Logo
-    logo_path = os.path.join(os.path.dirname(__file__), "chanchito.png")
-    if os.path.exists(logo_path):
-        pdf.image(logo_path, x=pdf.w/2-25, y=20, w=50)
-        pdf.ln(50)
-    else:
-        pdf.ln(30)
+    # Espacio donde estaba el logo
+    pdf.ln(30)
     # Título principal
     pdf.set_font("Arial", 'B', 22)
     pdf.set_text_color(255, 152, 0)
@@ -269,4 +260,3 @@ def render_manual_with_icons(md_text):
                 st.warning(f"[Imagen no encontrada: {alt_text}]")
 
 render_manual_with_icons(manual_md)
-
