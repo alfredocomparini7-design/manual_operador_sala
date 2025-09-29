@@ -12,11 +12,11 @@ st.markdown("""
         color: #333333;
     }
     .seccion {
-        padding: 1.2rem;
-        border-radius: 14px;
-        margin-bottom: 1.2rem;
-        background: linear-gradient(90deg, #ffe082 0%, #ffcc80 100%);
-        box-shadow: 0px 2px 8px rgba(255, 193, 7, 0.08);
+        padding: 0;
+        border-radius: 0;
+        margin-bottom: 0;
+        background: none;
+        box-shadow: none;
     }
     .titulo-seccion {
         font-size: 28px;
@@ -24,12 +24,20 @@ st.markdown("""
         margin-bottom: 0.7rem;
         color: #ff9800;
         letter-spacing: 1px;
+        background: linear-gradient(90deg, #ffe082 0%, #ffcc80 100%);
+        border-radius: 14px;
+        padding: 1.2rem;
+        box-shadow: 0px 2px 8px rgba(255, 193, 7, 0.08);
     }
     .subtitulo {
         font-size: 22px;
         font-weight: 700;
         margin-top: 1.1rem;
         color: #f57c00;
+        background: linear-gradient(90deg, #fffde7 0%, #ffe0b2 100%);
+        border-radius: 10px;
+        padding: 0.7rem 1rem;
+        box-shadow: 0px 1px 4px rgba(255, 193, 7, 0.06);
     }
     .correcto {
         background-color: #fffde7;
@@ -55,7 +63,7 @@ st.markdown("""
 
 # --- TITULO APP ---
 st.title("📘 Manual Operador Sala / Super10")
-st.markdown("Versión digital  ** Ojalas les sirva**.")
+st.markdown("Versión digital corporativa con **secciones visuales, íconos y ejemplos**.")
 
 # --- ICONOS / IMÁGENES ---
 ICONOS = {
@@ -86,7 +94,7 @@ def get_icon_for_text(text):
         ("reponer", None, "🛒"),
         ("factura", None, "📄"),
         ("aluzado", None, "🌀"),
-        ("corredora", None, ""),
+        ("corredora", None, "🚚"),
         ("glosario", None, "📖")
     ]
     text_lower = text.lower()
@@ -122,6 +130,3 @@ def render_manual_with_icons(md_text):
     st.markdown(html_content, unsafe_allow_html=True)
 
 render_manual_with_icons(manual_md)
-
-       
-
