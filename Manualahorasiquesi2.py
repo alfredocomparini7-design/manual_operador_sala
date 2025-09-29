@@ -111,18 +111,26 @@ def render_manual_with_icons(md_text):
                     if icon:
                         if icon[0] == "image":
                             st.image(icon[1], width=38)
+                            st.header(sec_name)
                         elif icon[0] == "emoji":
-                            st.write(icon[1] + " ", end="")
-                    st.header(sec_name)
+                            st.header(f"{icon[1]} {sec_name}")
+                        else:
+                            st.header(sec_name)
+                    else:
+                        st.header(sec_name)
                 elif line_strip.startswith('### '):
                     sub_name = line_strip[4:].strip()
                     icon = get_icon_for_text(sub_name)
                     if icon:
                         if icon[0] == "image":
                             st.image(icon[1], width=28)
+                            st.subheader(sub_name)
                         elif icon[0] == "emoji":
-                            st.write(icon[1] + " ", end="")
-                    st.subheader(sub_name)
+                            st.subheader(f"{icon[1]} {sub_name}")
+                        else:
+                            st.subheader(sub_name)
+                    else:
+                        st.subheader(sub_name)
                 elif line_strip.startswith('✅ '):
                     st.success(line_strip[2:].strip())
                 elif line_strip.startswith('❌ '):
