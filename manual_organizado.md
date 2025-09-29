@@ -280,6 +280,7 @@ Seguridad: si el manubrio toca el pecho, la máquina se apaga (volver a apretar 
 
 
 
+
 📌 Extras
 
 
@@ -316,37 +317,37 @@ En las mini-galletas ordenar bien (primera en entrar , primero en salir) , a pes
 
 ## Glosario
 
-**Checkout:** Sector de línea de cajas donde se realiza el cobro y pago de los productos. / El pallet de checkout suele estar arriba , dejar devolución de checkout allí.
+Checkout:  Sector de línea de cajas donde se realiza el cobro y pago de los productos. / El pallet de checkout suele estar arriba , dejar devolución de checkout allí.
 
 
-**Barrido de sala/caja:** Revisión y orden de la sala de ventas o de la caja, para dejarla limpia y con productos bien presentados antes del cierre.
+Barrido de sala/caja:  Revisión y orden de la sala de ventas o de la caja, para dejarla limpia y con productos bien presentados antes del cierre.
 
 
-**Cabecera:** Extremo de una góndola o pasillo, lugar estratégico para ubicar productos en promoción o de alta rotación.
+Cabecera:  Extremo de una góndola o pasillo, lugar estratégico para ubicar productos en promoción o de alta rotación.
 
 
-**Brecha visible:** Si sabemos porque se perdieron. (Merma Operacional por ejemplo)
+Brecha visible:  Si sabemos porque se perdieron. (Merma Operacional por ejemplo)
 
 
-**Brecha invisible:** Perdidas que no sabemos porque se perdieron. (Hurtos por ejemplo, no figuran en stock)
+Brecha invisible:  Perdidas que no sabemos porque se perdieron. (Hurtos por ejemplo, no figuran en stock)
 
 
-**FEFO (First Expired, First Out):** Método de rotación de inventario: se venden primero los productos cuya fecha de vencimiento es más próxima.
+FEFO (First Expired, First Out):  Método de rotación de inventario: se venden primero los productos cuya fecha de vencimiento es más próxima.
 
 
-**Fleje:** Etiqueta de papel que contiene el precio y código de un producto en góndola.
+Fleje: Etiqueta de papel que contiene el precio y código de un producto en góndola.
 
 
-**Flejera:** Máquina o dispositivo para imprimir y colocar flejes en góndola.
+Flejera:  Máquina o dispositivo para imprimir y colocar flejes en góndola.
 
 
-**Góndola:** Estantería donde se exhiben los productos al cliente.
+Góndola: Estantería donde se exhiben los productos al cliente.
 
 
-**Isla / Isla de congelados:** Exhibidor ubicado en medio de la sala, generalmente de gran capacidad, utilizado para productos congelados o promociones.
+Isla / Isla de congelados:  Exhibidor ubicado en medio de la sala, generalmente de gran capacidad, utilizado para productos congelados o promociones.
 
 
-**Layout:** Diseño o distribución del espacio de la sala de ventas, incluyendo ubicación de góndolas, islas y cabeceras.
+Layout:  Diseño o distribución del espacio de la sala de ventas, incluyendo ubicación de góndolas, islas y cabeceras.
 
 
-**Quiebre de stock:** Situación en que un producto no está disponible para el cliente en la góndola ni en bodega.
+Quiebre de stock:  Situación en que un producto no está disponible para el cliente en la góndola ni en bodega.
