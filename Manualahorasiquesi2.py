@@ -12,7 +12,7 @@ st.set_page_config(page_title="Manual Operador Super10", page_icon="🛒", layou
 
 # --- TITULO APP ---
 st.title("📘 Manual Operador Sala / Super10")
-st.markdown("Versión digital corporativa con **secciones visuales, íconos y ejemplos**.")
+st.markdown("Preliminar , lo mejorare. **Cualquer cosa me dicen**.")
 
 # --- ICONOS / IMÁGENES ---
 ICONOS = {
@@ -269,4 +269,5 @@ def render_manual_with_icons(md_text):
                 st.warning(f"[Imagen no encontrada: {alt_text}]")
 
 render_manual_with_icons(manual_md)
+
 
