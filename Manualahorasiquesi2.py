@@ -264,8 +264,9 @@ def render_manual_with_icons(md_text):
         elif part[0] == "image":
             img_abspath, alt_text = part[1], part[2]
             if os.path.exists(img_abspath):
-                st.image(img_abspath, caption=alt_text, use_column_width=True)
+                st.image(img_abspath, caption=alt_text, use_container_width=True)
             else:
                 st.warning(f"[Imagen no encontrada: {alt_text}]")
 
 render_manual_with_icons(manual_md)
+
